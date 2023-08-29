@@ -20,7 +20,7 @@ class CentroCustoController extends Controller
     {
         $centroCustos = CentroCusto::orderby('centro_custo')
             ->paginate(10);
-        return view('centro.index')->with(compact('CentroCustos'));
+        return view('centro.index')->with(compact('centroCustos'));
     }
 
     /**
