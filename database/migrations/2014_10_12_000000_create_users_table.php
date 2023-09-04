@@ -21,14 +21,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        \App\Models\User::factory()->create([
-            'name' => 'HenriquePB',
-            'email' => 'henriquepra10@gmail.com',
+        \App\Models\User::create([
+            'name' => 'Thomas Melo',
+            'email' => 'thomas.cmelo@sp.senac.br',
             'email_verified_at' => now(),
-            'password' => '$2y$10$0Jer90XH4r.IysrLiBfgHOonb9HUyS5U0N4PW0WYbAtrzYLoQP3qu'
-
+            'password' => '$2y$10$NWv1rNyKL6c5CbCaYaTAVOJ4O6WC.fPSlcUMzfTF3zOkNkjLwXK8G', //Senac@123
         ]);
-
     }
 
     /**

@@ -17,11 +17,11 @@ class LancamentoFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_user' => '1',
+            'id_user' => fake()->numberBetween(1,10),
             'id_tipo' => fake()->numberBetween(1,2),
             'id_centro_custo' => fake()->numberBetween(1,3),
             'valor' => fake()->numberBetween(1,13456),
-            'vencimento' => fake()->dateTimeBetween(now(),'+30week'),
+            'vencimento' => fake()->dateTimeBetween(now(),'+30 week'),
             'descricao' => fake()->word()
         ];
     }

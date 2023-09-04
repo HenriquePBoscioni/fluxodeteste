@@ -24,14 +24,19 @@ class Tipo extends Model
     ];
 
     /**
-     * ---------------------------------------
-     * | - Relacionamentos
+     * -----------------------------
+     * | Relacionamentos
      * |
-     * ---------------------------------------
+     * ------------------------------
      */
 
-    public function lancamentos()
-    {
-        return $this->belongsTo(Lancamento::class, 'id_tipo', 'id_tipo');
-    }
+     public function lancamentos(){
+        return $this->belongsTo(
+            Lancamento::class,
+            'id_tipo',
+            'id_tipo'
+            );
+     }
+
+
 }

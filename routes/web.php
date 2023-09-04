@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\{
     LancamentoController,
     CentroCustoController,
@@ -17,13 +18,14 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return redirect()->route('lancamento.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+    })->middleware(['auth', 'verified'])
+        ->name('dashboard');
 
 /**
- * |-----------------------------
+ * --------------------------
  * | Centro de Custo
- * |-----------------------------
+ * | 25-08-2023
+ * --------------------------
  */
 Route::prefix('centro-custo')
     ->controller(CentroCustoController::class)
@@ -46,37 +48,40 @@ Route::prefix('centro-custo')
             ->name('centro.destroy');
     });
 
+
 /**
- * |-----------------------------
- * | Lançamentos
- * |-----------------------------
+ * --------------------------
+ * | Lancamentos
+ * | 25-08-2023
+ * --------------------------
  */
 Route::prefix('lancamento')
-    ->controller(LancamentoController::class)
-    ->middleware('auth')
-    ->group(function () {
-        Route::get('/', 'index')
-            ->name('lancamento.index');
-        Route::get('/novo', 'create')
-            ->name('lancamento.create');
-        Route::get('/editar/{id}', 'edit')
-            ->name('lancamento.edit');
-        Route::get('exibir/{id}', 'show')
-            ->name('lancamento.show');
+->controller(LancamentoController::class)
+->middleware('auth')
+->group(function () {
+    Route::get('/', 'index')
+        ->name('lancamento.index');
+    Route::get('/novo', 'create')
+        ->name('lancamento.create');
+    Route::get('/editar/{id}', 'edit')
+        ->name('lancamento.edit');
+    Route::get('exibir/{id}', 'show')
+        ->name('lancamento.show');
 
-        Route::post('cadastrar', 'store')
-            ->name('lancamento.store');
-        Route::post('atualizar/{id}', 'update')
-            ->name('lancamento.update');
-        Route::post('excluir/{id}', 'destroy')
-            ->name('lancamento.destroy');
-    });
+    Route::post('cadastrar', 'store')
+        ->name('lancamento.store');
+    Route::post('atualizar/{id}', 'update')
+        ->name('lancamento.update');
+    Route::post('excluir/{id}', 'destroy')
+        ->name('lancamento.destroy');
+});
+
 
 
 /**
- * |-----------------------------
+ * --------------------------
  * | Profile
- * |-----------------------------
+ * --------------------------
  */
 Route::controller(ProfileController::class)
     ->middleware('auth')

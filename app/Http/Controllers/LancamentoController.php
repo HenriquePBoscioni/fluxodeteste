@@ -7,17 +7,22 @@ use Illuminate\Http\Request;
 use App\Models\{
     CentroCusto,
     Lancamento,
-    Tipo
+    Tipo,
+    User
 };
+
+
 
 class LancamentoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar todos os produtos
      */
     public function index()
     {
-        return view('lancamento.index');
+        $lancamentos = Lancamento::orderBy('vencimento')->paginate(10);
+
+        return view('lancamento.index')->with(compact('lancamentos'));
     }
 
     /**

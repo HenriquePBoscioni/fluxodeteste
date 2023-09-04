@@ -24,14 +24,18 @@ class CentroCusto extends Model
     ];
 
     /**
-     * ---------------------------------------
-     * | - Relacionamentos
+     * -----------------------------
+     * | Relacionamentos
      * |
-     * ---------------------------------------
+     * ------------------------------
      */
 
-    public function lancamentos()
-    {
-        return $this->belongsTo(Lancamento::class, 'id_centro_custo', 'id_centro_custo');
-    }
+     public function lancamentos(){
+        return $this->belongsTo(
+            Lancamento::class,
+            'id_centro_custo',
+            'id_centro_custo'
+            );
+     }
+
 }

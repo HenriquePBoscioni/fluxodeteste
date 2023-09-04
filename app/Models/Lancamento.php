@@ -19,6 +19,7 @@ class Lancamento extends Model
 
     protected $table = 'lancamentos';
     protected $primaryKey = 'id_lancamento';
+
     protected $date = [
         'created_at',
         'updated_at',
@@ -42,11 +43,17 @@ class Lancamento extends Model
     ];
 
     /**
-     * ----------------------------------------
+     * --------------------------------------------------
      * | Relacionamentos
      * | https://laravel.com/docs/10.x/eloquent-relationships
-     * ----------------------------------------
+     * --------------------------------------------------
      */
+
+     /**
+      * retorna o tipo do lançamento
+      * 21-08-2023
+      * @return belongsTo
+      */
     public function tipo()
     {
         return $this->belongsTo(
@@ -56,7 +63,12 @@ class Lancamento extends Model
         );
     }
 
-    public function CentroCusto()
+    /**
+      * retorna o centro de custo do lançamento
+      * 21-08-2023
+      * @return belongsTo
+      */
+    public function centroCusto()
     {
         return $this->belongsTo(
             CentroCusto::class,
@@ -65,19 +77,26 @@ class Lancamento extends Model
         );
     }
 
-    public function usuario(){
+    /**
+      * retorna o usuario do lançamento
+      * 21-08-2023
+      * @return belongsTo
+      */
+    public function usuario()
+    {
         return $this->belongsTo(
             User::class,
-            'id',
-            'id_user'
+            'id_user',
+            'id'
         );
     }
 
+
     /**
-     * ----------------------------------------
-     * | Mutator
-     * |https://laravel.com/docs/10.x/eloquent-mutators
-     * ----------------------------------------
+     * ---------------------------------------------------
+     * | Mutators
+     * | https://laravel.com/docs/10.x/eloquent-mutators
+     * ---------------------------------------------------
      */
     protected function descricao(): Attribute
     {
@@ -87,11 +106,10 @@ class Lancamento extends Model
         );
     }
 
-    /**
-     * ----------------------------------------
-     * | outros metodos
-     * |
-     * ----------------------------------------
-     */
 
+    /**
+     * ----------------------------------------------------
+     * | Outros Métodos
+     * -------------------------------
+     */
 }
