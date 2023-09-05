@@ -12,6 +12,7 @@ use App\Models\{
     Tipo,
     User
 };
+use Ramsey\Uuid\Type\Decimal;
 
 class Lancamento extends Model
 {
@@ -20,7 +21,7 @@ class Lancamento extends Model
     protected $table = 'lancamentos';
     protected $primaryKey = 'id_lancamento';
 
-    protected $date = [
+    protected $dates = [
         'created_at',
         'updated_at',
         'deleted_at',
@@ -37,9 +38,9 @@ class Lancamento extends Model
         'anexo'
     ];
 
-    protected $cast = [
+    protected $casts = [
         'vencimento' => 'date',
-        'valor' => 'decimal'
+        'valor' => 'decimal:2'
     ];
 
     /**
@@ -103,6 +104,13 @@ class Lancamento extends Model
         return Attribute::make(
             get: fn (string $value) => ucfirst($value),
             set: fn (string $value) => strtolower(trim($value)),
+        );
+    }
+
+    protected function valor(): Attribute
+    {
+        return Attribute::make(
+            get: fn (float $value) => number_format($value,2,',','.'),
         );
     }
 
