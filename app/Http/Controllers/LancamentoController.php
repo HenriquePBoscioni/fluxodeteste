@@ -26,11 +26,15 @@ class LancamentoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Direciona para o formulario de novo lancamento
      */
     public function create()
     {
-        //
+        $lancamento = null;
+        $centrosDeCusto = CentroCusto::class;
+        // $tipos = Tipo::class;
+        $tipos = Tipo::class;
+        return view('lancamento.form')->with(compact('lancamento', 'centrosDeCusto', 'tipos'));
     }
 
     /**
