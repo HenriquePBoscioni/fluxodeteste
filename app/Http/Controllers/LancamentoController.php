@@ -20,7 +20,7 @@ class LancamentoController extends Controller
      */
     public function index()
     {
-        $lancamentos = Lancamento::orderBy('vencimento')->paginate(10);
+        $lancamentos = Lancamento::orderBy('id_lancamento','desc')->paginate(10);
 
         return view('lancamento.index')->with(compact('lancamentos'));
     }
@@ -38,11 +38,25 @@ class LancamentoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Cadastrar um novo lancamento
      */
     public function store(Request $request)
     {
-        //
+        $lancamento = new Lancamento();
+        $lancamento->fill($request->all());
+        //capturar o id do usuario logado
+        $lancamento->id_user = Auth::user()->id;
+        // subir o anexo
+        if($request->anexo){
+            $extension = $request->anexo->getClientOriginalExtension();
+            $nomeAnexo = date('YmdHis').'.'.$extension;
+            $request->anexo->storeAs('anexos',$nomeAnexo);
+            $lancamento->anexo = $nomeAnexo;
+
+           // $lancamento->anexo = $request->anexo->store('anexos');
+        }
+        $lancamento->save();
+        return redirect()->route('lancamento.index');
     }
 
     /**

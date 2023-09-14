@@ -38,6 +38,12 @@
             <input class="form-control" type="number" id="valor" name="valor" value=""
                 value="{{ $lancamento ? $lancamento->valor : old('valor') }}" required>
         </div>
+        <div class="col-md-3">
+            <label for="anexo" class="form-label">
+                Anexo
+            </label>
+            <input type="file" class="form-control" name="anexo" id="anexo">
+        </div>
         <div class="col-md-12">
             <label class="form-label" for="descricao">Descrição*</label>
             <input class="form-control" type="text" id="descricao" name="descricao" value=""

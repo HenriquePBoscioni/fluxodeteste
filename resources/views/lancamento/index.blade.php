@@ -3,7 +3,7 @@
     <h1>
         LANÇAMENTO
         |
-        <a class="btn btn-primary" href="{{route('lancamento.create')}}">
+        <a class="btn btn-primary" href="{{ route('lancamento.create') }}">
             Novo lançamento
         </a>
     </h1>
@@ -39,9 +39,9 @@
                     <tr>
                         <td scope="row" class="col-2">
                             <div class="flex-column">
-                                {{-- ver --}}
-                                <a class="btn btn-success" href="#">
-                                    <i class="bi bi-eye"></i>
+                                {{-- ver anexo --}}
+                                <a class="btn btn-success" href="{{ url('/anexos//'.$lancamento->anexo) }}" target="blank">
+                                    <i class="bi bi-paperclip"></i>
                                 </a>
                                 {{-- editar --}}
                                 <a class="btn btn-dark" href="#">
@@ -56,10 +56,10 @@
                         </td>
                         <td>{{ $lancamento->vencimento->format('d/m/Y') }}</td>
                         <td>{{ $lancamento->tipo->tipo }}</td>
-                        <td>R${{$lancamento->valor}}</td>
-                        <td>{{$lancamento->centroCusto->centro_custo}}</td>
-                        <td>{{$lancamento->descricao}}</td>
-                        <td>{{$lancamento->usuario->name}}</td>
+                        <td>R${{ $lancamento->valor }}</td>
+                        <td>{{ $lancamento->centroCusto->centro_custo }}</td>
+                        <td>{{ $lancamento->descricao }}</td>
+                        <td>{{ $lancamento->usuario->name }}</td>
                         <td>{{ $lancamento->created_at->format('d/m/Y \a\s H:i') }}</td>
                     </tr>
                 @empty
