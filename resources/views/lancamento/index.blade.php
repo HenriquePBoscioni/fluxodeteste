@@ -7,15 +7,77 @@
             Novo lançamento
         </a>
     </h1>
-    <h2>{{ Auth::user()->name }}</h2>
+    {{-- <h2>{{ Auth::user()->name }}</h2> --}}
 
     {{-- alerts --}}
     @include('layouts.partials.alerts')
     {{-- /alerts --}}
 
     {{-- paginação --}}
-    {!! $lancamentos->links() !!}
+    {!! $lancamentos->appends([
+            'search' => request()->get('search', ''),
+        ])->links() !!}
     {{-- /paginação --}}
+    {{-- pesquisa --}}
+    <div class="row">
+        <form action="{{ route('lancamento.index') }}" method="get">
+            <input class="form-control col-md-4" type="search" name="search" id="search"
+                placeholder="Digite o que deseja pesquisar..." value="{{ old('search', request()->get('search')) }}">
+
+            {{-- data inicial --}}
+            <div class="col-md-3">
+                <label class="form-label" for="dt_inicial">
+                    Data inicial
+                </label>
+                <input class="form-control" type="date" name="dt_inicial" id="dt_inicial">
+            </div>
+            {{-- /data inicial --}}
+            {{-- data final --}}
+            <div class="col-md-3">
+                <label class="form-label" for="dt_final">
+                    Data final
+                </label>
+                <input class="form-control" type="date" name="dt_final" id="dt_final">
+            </div>
+            {{-- /data final --}}
+
+            {{-- tipo --}}
+            <div class="col-md-3">
+                <label for="id_tipo" class="form-label">Tipo*</label>
+                <select id="id_tipo" class="form-select" name="id_tipo">
+                    <option value="">Escolha...</option>
+                    @foreach ($tipos::orderBy('tipo')->get() as $tipo)
+                        <option value="{{ $tipo->id_tipo }}">
+                            {{ $tipo->tipo }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            {{-- \tipo --}}
+
+            {{-- centroCusto --}}
+            <div class="col-md-3">
+                <label for="id_centro_custo" class="form-label">Centro de Custo*</label>
+                <select id="id_centro_custo" class="form-select" name="id_centro_custo">
+                    <option value="">Escolha...</option>
+                    @foreach ($centros::orderBy('centro_custo')->get() as $centro)
+                        <option value="{{ $centro->id_centro_custo }}">
+                            {{ $centro->centro_custo }}
+                    @endforeach
+                </select>
+            </div>
+            {{-- \centroCusto --}}
+
+            <input class="btn btn-primary col-md-1" type="submit" value="Pesquisar">
+            @if (request()->get('search') != '')
+                <a class="btn btn-dark col-md-1" href="{{ route('lancamento.index') }}">
+                    Limpar
+                </a>
+            @endif
+
+        </form>
+    </div>
+    {{-- /pesquisa --}}
 
 
     <div class="table-responsive">
@@ -40,8 +102,11 @@
                         <td scope="row" class="col-2">
                             <div class="flex-column">
                                 {{-- ver anexo --}}
-                                <a class="btn btn-success" href="{{ url('/anexos//'.$lancamento->anexo) }}" target="blank">
-                                    <i class="bi bi-paperclip"></i>
+                                @if ($lancamento->anexo)
+                                    <a class="btn btn-success" href="{{ Storage::url('/anexos/' . $lancamento->anexo) }}"
+                                        target="_blank">
+                                        <i class="bi bi-paperclip"></i>
+                                @endif
                                 </a>
                                 {{-- editar --}}
                                 <a class="btn btn-dark" href="#">
